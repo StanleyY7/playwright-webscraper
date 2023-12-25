@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "playwright": "^1.40.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5"
+  },
+  "scripts": {
+    "scraper": "npx playwright test",
+    "report": "npx playwright show-report",
+    "investigate": "npx playwright test --headed --debug"
+  }
+}
