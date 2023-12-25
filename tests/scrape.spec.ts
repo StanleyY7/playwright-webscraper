@@ -20,11 +20,16 @@ test("scrape", async ({ page }) => {
     const lostFights = await page
       .getByRole("cell", { name: "losses" })
       .allTextContents();
+    const draws = await page
+      .locator("tr")
+      .filter({ hasText: "Draws 1" })
+      .locator("td")
+      .allTextContents();
     console.log("///////////////////// FINALLY ////////////////////////");
     console.log(
-      `Fighter: ${name} Total Fights: ${totalFights} wins: ${wonFights} losses: ${lostFights
-        .toString()
-        .replace("hide", "")}`
+      `Fighter: ${name} Total Fights: ${totalFights} wins: ${wonFights} draws: ${
+        draws[0] ? draws : "0"
+      } losses: ${lostFights.toString().replace("hide", "")}`
     );
   } catch (e) {
     console.log(`ERROR: ${e}`);
