@@ -1,6 +1,8 @@
 import { test } from "@playwright/test";
 
-const name: string = "Anthony_Joshua";
+const originalName: string = "Tim Tszyusad";
+
+const name: string = originalName.replace(" ", "_");
 
 test("scrape", async ({ page }) => {
   try {
@@ -9,6 +11,11 @@ test("scrape", async ({ page }) => {
     });
     console.log("///////////////////// STARTING ////////////////////////");
     console.log("scraping totalFights");
+    const age = (await page.getByText("(age").allInnerTexts())
+      .join(" ")
+      .replace(/\(|\)|age/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
     const totalFights = await page
       .getByRole("cell", { name: "fights" })
       .allTextContents();
@@ -27,7 +34,9 @@ test("scrape", async ({ page }) => {
       .allTextContents();
     console.log("///////////////////// FINALLY ////////////////////////");
     console.log(
-      `Fighter: ${name} Total Fights: ${totalFights} wins: ${wonFights} draws: ${
+      `Fighter: ${originalName} Age: ${
+        age ? age : "NOT FOUND"
+      } Total Fights: ${totalFights} wins: ${wonFights} draws: ${
         draws[0] ? draws : "0"
       } losses: ${lostFights.toString().replace("hide", "")}`
     );
