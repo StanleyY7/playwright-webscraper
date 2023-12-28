@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 
-const originalName: string = "Tim Tszyusad";
+const originalName: string = "Tim Tszyus";
 
 const name: string = originalName.replace(" ", "_");
 
